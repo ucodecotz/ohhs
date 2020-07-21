@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+    {% load static %}
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'home/bootstrap.css' %}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{% static 'home/mdb.css' %}" rel="stylesheet">
+<!--  Font Awesome -->
+
+    <style>
+
+    @media only screen and (max-width: 768px) {
+
+/* Force table to not be like tables anymore */
+table,
+thead,
+tbody,
+th,
+td,
+tr {
+  display: block;
+  text-align: center;
+}
+table.table td {
+  padding-top: 1.5rem;
+  padding-bottom: .4rem;
+
+}
+img {}
+/* Hide table headers (but not display: none;, for accessibility) */
+thead tr {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+td {
+  /* Behave  like a "row" */
+  border: none;
+  position: relative;
+  padding-left: 50%;
+
+}
+
+td:before {
+  /* Now like a table header */
+  position: absolute;
+  /* Top/left values mimic padding */
+  top: 6px;
+  left: 6px;
+  white-space: nowrap;
+}
+
+td:nth-of-type(1):before {
+  content: "Product";
+  font-weight: 400;
+  left: 50%;
+  transform: translate(-50%);
+}
+td:nth-of-type(2):before {
+  content: "Color";
+  font-weight: 400;
+  left: 50%;
+  transform: translate(-50%);
+}
+td:nth-of-type(3) {
+  position: absolute;
+  border: none !important;
+}
+td:nth-of-type(4):before {
+  content: "Price";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+td:nth-of-type(5):before {
+  content: "QTY";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+td:nth-of-type(5) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 1.9rem !important;
+}
+td:nth-of-type(6):before {
+  content: "Amount";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+td:nth-of-type(7):before {
+  content: "Remove item";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+.btn-group {
+  margin-left: 0 !important;
+}
+tr:nth-child(4) td:nth-of-type(4):before,
+tr:nth-child(4) td:nth-of-type(1):before,
+tr:nth-child(4) td:nth-of-type(2):before {
+  content: '';
+}
+tr:nth-child(4) td:nth-of-type(1) {
+  position: absolute;
+  border: none !important;
+}
+tr:nth-child(4) td:nth-of-type(3) {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+tr:nth-child(4) td:nth-of-type(4) {
+  border-top: none !important;
+  display: flex;
+  justify-content: center;
+  border-bottom : 1px solid #dee2e6;
+}
+
+}
+
+<!-- labour profile -->
+
+body{
+    margin-top:20px;
+    background-color:#e9ebee;
+}
+
+.profile-banner {
+  width: 100%;
+  height: 300px;
+  background-position: center center;
+  background-size: cover;
+  position: relative;
+  background-color: #252932;
+  border-bottom: 4px solid #fff;
+  box-shadow: 2px 0px 4px rgba(0,0,0,0.1);
+}
+
+.avatar-container {
+  height: 300px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 200px;
+  position: relative;
+  margin: 0px auto;
+  margin-top: 196px;
+  border: 4px solid #f3f3f3;
+}
+
+.profile-actions {
+  position: absolute;
+  bottom: 20px;
+}
+
+.user-profile-2 {
+  margin-top: 50px;
+}
+
+.user-profile-sidebar {
+  margin: 0 0 20px 0;
+}
+
+.user-profile-sidebar .user-identity {
+  margin: 20px 0 0 0;
+}
+
+.user-profile-sidebar img {
+  width: 90px;
+}
+
+.account-status-data {
+  text-align: center;
+  padding: 10px 0;
+  border-top: 1px dashed #ddd;
+  border-bottom: 1px dashed #ddd;
+  margin: 10px 0 20px 0;
+}
+
+.account-status-data h5 {
+  font-size: 11px;
+  line-height: 150%;
+  color: #909090;
+}
+
+.user-button {
+  margin: 15px 0;
+}
+
+.user-button .btn {
+  margin: 5px 0;
+}
+
+#social {
+  padding: 10px;
+  background: #E5E9EC;
+  text-align: center;
+}
+
+#social a:hover {
+  text-decoration: none;
+}
+
+.fa-circle.facebook {
+  color: #5471AE;
+}
+
+.fa-circle.twitter {
+  color: #4EC6F6;
+}
+
+.fa-circle.gplus {
+  color: #E24E3E;
+}
+
+.fa-circle.tumblr {
+  color: #4D77A3;
+}
+
+.fa-circle.linkedin {
+  color: #3097CE;
+}
+
+.user-profile-content {
+  margin: 30px 15px;
+}
+
+.tab-pane{
+    padding-top:20px;
+}
+
+.user-message{
+width:50px;
+height:50px;
+}
+
+<!--search-->
+body{
+    background:#eee;
+
+}
+.search-result .title h3 {
+    margin: 0 0 15px;
+    color: #333;
+}
+.search-result .title p {
+    font-size: 12px;
+    color: #333;
+}
+.well {
+    border: 0;
+    padding: 20px;
+    min-height: 63px;
+    background: #fff;
+    box-shadow: none;
+    border-radius: 3px;
+    position: relative;
+    max-height: 100000px;
+    border-bottom: 2px solid #ccc;
+    transition: max-height 0.5s ease;
+    -o-transition: max-height 0.5s ease;
+    -ms-transition: max-height 0.5s ease;
+    -moz-transition: max-height 0.5s ease;
+    -webkit-transition: max-height 0.5s ease;
+}
+.form-control {
+    height: 45px;
+    padding: 10px;
+    font-size: 16px;
+    box-shadow: none;
+    border-radius: 0;
+    position: relative;
+}
+
+
+    </style>
+</head>
+
+
+<body class="homepage-v2 hidden-sn white-skin animated">
+
+    <!--Navigation-->
+    <header>
+        <!-- Sidebar navigation -->
+        <ul id="slide-out" class="side-nav custom-scrollbar">
+            <!-- Logo -->
+            <li>
+                <div class="logo-wrapper waves-light">
+                    <a href="#">
+                        <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" class="img-fluid flex-center">
+                    </a>
+                </div>
+            </li>
+            <!--/. Logo -->
+            <!--Social-->
+            <li>
+                <ul class="social">
+                    <li>
+                        <a class="fb-ic">
+                            <i class="fab fa-facebook-f"> </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="pin-ic">
+                            <i class="fab fa-pinterest"> </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="gplus-ic">
+                            <i class="fab fa-google-plus-g"> </i>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="tw-ic">
+                            <i class="fab fa-twitter"> </i>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--/Social-->
+            <!--Search Form-->
+            <li>
+                <form class="search-form" role="search">
+                    <div class="form-group md-form mt-0 pt-1 waves-light">
+                        <input type="text" class="form-control" placeholder="Search">
+                    </div>
+                </form>
+            </li>
+            <!--/.Search Form-->
+            <!-- Side navigation links -->
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r">
+                            <i class="fas fa-shopping-cart"></i> Cart page
+                            <i class="fas fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="../cart/cart-v1.html" class="waves-effect">Cart V.1</a>
+                                </li>
+                                <li>
+                                    <a href="../cart/cart-v2.html" class="waves-effect">Cart V.2</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r">
+                            <i class="far fa-hand-pointer"></i> Category page
+                            <i class="fas fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="../category/category-v1.html" class="waves-effect">Category V.1</a>
+                                </li>
+                                <li>
+                                    <a href="../category/category-v2.html" class="waves-effect">Category V.2</a>
+                                </li>
+                                <li>
+                                    <a href="../category/category-v3.html" class="waves-effect">Category V.3</a>
+                                </li>
+                                <li>
+                                    <a href="../category/category-v4.html" class="waves-effect">Category V.4</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r">
+                            <i class="far fa-bookmark"></i> Homepage
+                            <i class="fas fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="../homepage/homepage-v1.html" class="waves-effect">Homepage V.1</a>
+                                </li>
+                                <li>
+                                    <a href="../homepage/homepage-v2.html" class="waves-effect">Homepage V.2</a>
+                                </li>
+                                <li>
+                                    <a href="../homepage/homepage-v3.html" class="waves-effect">Homepage V.3</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="collapsible-header waves-effect arrow-r">
+                            <i class="fas fa-camera-retro"></i> Product page
+                            <i class="fas fa-angle-down rotate-icon"></i>
+                        </a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li>
+                                    <a href="../product/product-v1.html" class="waves-effect">Product V.1</a>
+                                </li>
+                                <li>
+                                    <a href="../product/product-v2.html" class="waves-effect">Product V.2</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="../contact/contact.html" class="collapsible-header waves-effect">
+                            <i class="fas fa-envelope"></i> Contact</a>
+                    </li>
+
+                </ul>
+            </li>
+            <!--/. Side navigation links -->
+            <div class="sidenav-bg mask-strong"></div>
+        </ul>
+        <!--/. Sidebar navigation -->
+        <!-- Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg  navbar-light scrolling-navbar white">
+            <div class="container">
+                <!-- SideNav slide-out button -->
+                <div class="float-left mr-2">
+                    <a href="#" data-activates="slide-out" class="button-collapse">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </div>
+                <a class="navbar-brand font-weight-bold" href="{% url 'core:home' %}">
+                    <strong>Online HouseHold service system</strong>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item">
+
+                            {% if messages %}
+                                {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                  {{ message }}
+                                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+
+                        </li>
+                         <li class="nav-item">
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                                <i class="fas fa-envelope blue-text"></i> Contact
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                        <li class="nav-item ml-3">
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="#">
+                                <i class="fas fa-cog blue-text"></i> Settings</a>
+                        </li>
+                        <li class="nav-item dropdown ml-3">
+                            <a class="nav-link dropdown-toggle waves-effect waves-light dark-grey-text font-weight-bold" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-user blue-text"></i> {{request.user.username}} </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-cyan" aria-labelledby="navbarDropdownMenuLink-4">
+                                <a class="dropdown-item waves-effect waves-light" href="#">My account</a>
+                                <a class="dropdown-item waves-effect waves-light" href="{% url 'account_logout' %}">Log out</a>
+                            </div>
+                        </li>
+                         {%else%}
+
+                        <li class="nav-item ml-3">
+                            <a class="nav-link waves-effect waves-light dark-grey-text font-weight-bold" href="{% url 'account_login' %}">
+                                <i class="fas fa-cog blue-text"></i>login</a>
+                        </li>
+                        {%endif%}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- /.Navbar -->
+
+
+    </header>
+    <br><br>
+
+
+
+  {% block contents%}
+
+
+    {% endblock contents %}
+     <!--Footer-->
+  <footer class="page-footer fixed-bottom text-center text-md-left stylish-color-dark pt-0">
+
+
+
+    <div class="footer-copyright py-3 text-center">
+      <div class="container-fluid">
+        © 2020 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank">wadada.com </a>
+      </div>
+    </div>
+    <!--/.Copyright -->
+
+  </footer>
+  <!--/.Footer-->
+
+
+    <script type="text/javascript" src="{% static 'home/jquery-3.js' %}"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'home/popper.js' %}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'home/mdb.js' %}"></script>
+    <div class="hiddendiv common"></div>
+    <div class="modal fade cart-modal" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <!--Content-->
+      <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header">
+
+          <h4 class="modal-title font-weight-bold dark-grey-text" id="myModalLabel">Your cart</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Product 1</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Product 2</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Product 3</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Product 4</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <button class="btn btn-primary btn-rounded btn-sm">Checkout</button>
+          <a class="navbar-brand font-weight-bold" href=""><i class="fa fa-list-alt" aria-hidden="true">Order Summary </i></a>
+
+        </div>
+        <!--Footer-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-grey btn-rounded btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </div>
+
+  <!-- /.Cart Modal -->
+  {% block extra_scripts %}
+    {% endblock extra_scripts %}
+
+
+    <script type="text/javascript">
+        /* WOW.js init */
+        new WOW().init();
+
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script>
+        // Material Select Initialization
+        $(document).ready(function () {
+            $('.mdb-select').material_select();
+        });
+    </script>
+    <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+    </script><div class="drag-target" style="left: 0px;"></div>
+
+
+
+
+</body>
+</html>
+

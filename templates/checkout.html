@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{%block contents%}
+<main class="mt-0 mb-5" >
+    <div class="container wow fadeIn">
+      <h2 class="my-5 h2 text-center">Contact form</h2>
+      <div class="row">
+        <div class="col-md-8 mb-4">
+          <div class="card">
+            <form action="." method="POST" class="card-body">
+              {% csrf_token %}
+              <h3>Contact address</h3>
+
+              <div class='hideable_billing_form'>
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='1234 Main St' id='street_address' name='street_address' class='form-control' />
+                  <label for="street_address" class="">Address</label>
+                </div>
+
+                <div class="md-form mb-5">
+                  <input type='text' placeholder='Apartment or suite' id='apartment_address' name='apartment_address' class='form-control' />
+                  <label for="apartment_address" class="">Address 2 (optional)</label>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 mb-4">
+                    <label for="country">Country</label>
+                    {{ form.country }}
+                    <div class="invalid-feedback">
+                      Please select a valid country.
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-6 mb-4">
+                    <label for="zip_code">Zip</label>
+                    <input type='text' placeholder='Zip code' id='zip_code' name='zip_code' class='form-control' />
+                    <div class="invalid-feedback">
+                      Zip code required.
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="custom-control custom-checkbox">
+<!--                   {%  if form.same_contact_address %} checked{% endif%}-->
+                  <input   type="checkbox" class="custom-control-input" name="same_contact_address" id="same_contact_address">
+                  <label class="custom-control-label" for="same_contact_address">use same contact address(Optional)</label>
+                </div>
+                  <div class="custom-control custom-checkbox">
+<!--                    {% if form.save_info %} checked{% endif%}-->
+                  <input  type="checkbox" class="custom-control-input" name="save_info" id="save_info">
+
+                  <label class="custom-control-label" for="save_info">Save as default billing address(Optional)</label>
+                </div>
+
+              </div>
+
+              {% if default_billing_address %}
+              <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="use_default_billing" id="use_default_billing">
+                <label class="custom-control-label" for="use_default_billing">Use default billing address: {{ default_billing_address.street_address|truncatechars:10 }}</label>
+              </div>
+              {% endif %}
+              <hr>
+
+              <h3>Payment option</h3>
+
+              <div class="d-block my-3">
+                {% for value, name in form.fields.payment_option.choices %}
+                <div class="custom-control custom-radio">
+                  <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input" required>
+                  <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
+                </div>
+                {% endfor %}
+              </div>
+
+              <hr class="mb-4">
+              <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to Payments</button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+         core/order-snippet.html
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+{%endblock%}

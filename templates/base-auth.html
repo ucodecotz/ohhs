@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+
+    {% load static %}
+
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'home/bootstrap.css' %}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{% static 'home/mdb.css' %}" rel="stylesheet">
+<!--  Font Awesome -->
+
+    <style>
+
+    @media only screen and (max-width: 768px) {
+
+/* Force table to not be like tables anymore */
+table,
+thead,
+tbody,
+th,
+td,
+tr {
+  display: block;
+  text-align: center;
+}
+table.table td {
+  padding-top: 1.5rem;
+  padding-bottom: .4rem;
+
+}
+img {}
+/* Hide table headers (but not display: none;, for accessibility) */
+thead tr {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
+td {
+  /* Behave  like a "row" */
+  border: none;
+  position: relative;
+  padding-left: 50%;
+
+}
+
+td:before {
+  /* Now like a table header */
+  position: absolute;
+  /* Top/left values mimic padding */
+  top: 6px;
+  left: 6px;
+  white-space: nowrap;
+}
+
+td:nth-of-type(1):before {
+  content: "Product";
+  font-weight: 400;
+  left: 50%;
+  transform: translate(-50%);
+}
+td:nth-of-type(2):before {
+  content: "Color";
+  font-weight: 400;
+  left: 50%;
+  transform: translate(-50%);
+}
+td:nth-of-type(3) {
+  position: absolute;
+  border: none !important;
+}
+td:nth-of-type(4):before {
+  content: "Price";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+td:nth-of-type(5):before {
+  content: "QTY";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+td:nth-of-type(5) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 1.9rem !important;
+}
+td:nth-of-type(6):before {
+  content: "Amount";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+td:nth-of-type(7):before {
+  content: "Remove item";
+  left: 50%;
+  transform: translate(-50%);
+  font-weight: 400;
+}
+.btn-group {
+  margin-left: 0 !important;
+}
+tr:nth-child(4) td:nth-of-type(4):before,
+tr:nth-child(4) td:nth-of-type(1):before,
+tr:nth-child(4) td:nth-of-type(2):before {
+  content: '';
+}
+tr:nth-child(4) td:nth-of-type(1) {
+  position: absolute;
+  border: none !important;
+}
+tr:nth-child(4) td:nth-of-type(3) {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+tr:nth-child(4) td:nth-of-type(4) {
+  border-top: none !important;
+  display: flex;
+  justify-content: center;
+  border-bottom : 1px solid #dee2e6;
+}
+
+}
+
+
+
+
+
+<!--base auth-->
+
+.img-user{
+  margin-top: 40px;
+  float:left
+}
+
+.jumbotron label {
+    font-size:12px;
+}
+
+.reg-icon{
+    color:#5bc0de;
+    font-weight:bold;
+}
+
+.nav-pills>li.active>a,
+.nav-pills>li.active>a:hover,
+.nav-pills>li.active>a:focus {
+    color: #fff;
+    background-color: #5bc0de;
+}
+
+.prj-name{
+    font-weight:bold;
+    text-shadow: 0 2px 2px #eee;
+    color:#5bc0de;
+}
+
+.header,
+.marketing,
+.footer {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.header {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.header h3 {
+  padding-bottom: 19px;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+}
+
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+.jumbotron {
+  text-align: center;
+  padding:0px !important;
+}
+
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+
+@media screen and (min-width: 768px) {
+  .header,
+  .marketing,
+  .footer {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .header {
+    margin-bottom: 30px;
+  }
+
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.btn {
+ outline:0;
+ border:none;
+ border-top:none;
+ border-bottom:none;
+ border-left:none;
+ border-right:none;
+ box-shadow:inset 2px -3px rgba(0,0,0,0.15);
+}
+.btn:focus {
+ outline:0;
+ -webkit-outline:0;
+ -moz-outline:0;
+}
+.form-signin {
+  max-width: 280px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading, .form-signin {
+  margin-bottom: 10px;
+}
+.form-signin .form-control {
+  position: relative;
+  font-size: 16px;
+  height: auto;
+  padding: 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-bottom-style: none;
+  border-left-style: solid;
+  border-color: #000;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-top-style: none;
+  border-right-style: solid;
+  border-bottom-style: solid;
+  border-left-style: solid;
+  border-color: rgb(0,0,0);
+  border-top:1px solid rgba(0,0,0,0.08);
+}
+.form-signin-heading {
+  text-align: center;
+  text-shadow: 0 2px 2px rgba(0,0,0,0.5);
+  color:#5bc0de !important;
+}
+
+
+    </style>
+</head>
+
+
+<body class="homepage-v2 hidden-sn white-skin animated">
+
+
+  {% block contents%}
+
+    {% endblock contents %}
+     <!--Footer-->
+  <footer class="page-footer fixed-bottom text-center text-md-left stylish-color-dark pt-0">
+
+
+
+    <div class="footer-copyright py-3 text-center">
+      <div class="container-fluid">
+        © 2019 Copyright:
+        <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
+      </div>
+    </div>
+    <!--/.Copyright -->
+
+  </footer>
+  <!--/.Footer-->
+
+
+    <script type="text/javascript" src="{% static 'home/jquery-3.js' %}"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{% static 'home/popper.js' %}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{% static 'js/bootstrap.js' %}"></script>
+    <script type="text/javascript" src="{% static 'home/mdb.js' %}"></script>
+    <div class="hiddendiv common"></div>
+    <div class="modal fade cart-modal" id="cart-modal-ex" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <!--Content-->
+      <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header">
+
+          <h4 class="modal-title font-weight-bold dark-grey-text" id="myModalLabel">Your cart</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Product name</th>
+                <th>Price</th>
+                <th>Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>Product 1</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Product 2</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Product 3</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>Product 4</td>
+                <td>100$</td>
+                <td>
+                  <a>
+                    <i class="fas fa-eraser"></i>
+                  </a>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <button class="btn btn-primary btn-rounded btn-sm">Checkout</button>
+          <a class="navbar-brand font-weight-bold" href=""><i class="fa fa-list-alt" aria-hidden="true">Order Summary </i></a>
+
+        </div>
+        <!--Footer-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-grey btn-rounded btn-sm" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      <!--/.Content-->
+    </div>
+  </div>
+
+  <!-- /.Cart Modal -->
+  {% block extra_scripts %}
+  {% endblock extra_scripts %}
+
+
+    <script type="text/javascript">
+        /* WOW.js init */
+        new WOW().init();
+
+        // Tooltips Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <script>
+        // Material Select Initialization
+        $(document).ready(function () {
+            $('.mdb-select').material_select();
+        });
+    </script>
+    <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+    </script><div class="drag-target" style="left: 0px;"></div>
+
+
+
+
+</body>
+</html>
+

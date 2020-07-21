@@ -1,0 +1,58 @@
+{% extends "base-auth.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+{% load crispy_forms_tags %}
+{% block contents %}
+<div class="container">
+  <section>
+          <div class="container ">
+                  <div class="header">
+                    <ul class="nav nav-pills pull-right">
+                      <li><a href="#">&nbsp;</a></li>
+                    </ul>
+                    <h3 class="text-muted prj-name">Wadada</h3>
+
+                          <h1>{% trans "Sign Up" %}</h1>
+
+        <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+
+                  </div>
+
+                  <div style="height:auto;min-height:300px;" class="jumbotron">
+
+                    <div class="col-md-12 form-content">
+                      <form accept-charset="utf-8" method="POST" id="UserLoginForm" class="form-signin" action="{% url 'account_signup' %}">
+                             <h1 class="form-signin-heading text-muted">singUp</h1>
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            {% if redirect_field_value %}
+                            <input style=" colo:red;" type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+
+                            <button type="submit" class="btn btn-lg btn-info btn-block">
+                          <i class="fa fa-share"></i>
+                          signUp
+                        </button>
+                           <a  href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="container bootstrap snippet">
+                    <footer class="footer">
+                      <p>&copy; Company name 2015</p>
+                    </footer>
+                  </div>
+                </div>
+
+
+
+      </section>
+    </div>
+
+{% endblock %}
+
+
