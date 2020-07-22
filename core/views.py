@@ -21,8 +21,12 @@ def home(request):
     labour_filter = laboursFilterForm(request.GET, queryset=labours_qs)
 
     context = {
-        'filter': labour_filter,
-        'moreLabour': labours_qs1
+        'Labour_list': labours_qs,
+        'moreLabour': labours_qs1,
+        'worklist': Work.objects.all(),
+        'tribelist': Tribe.objects.all(),
+        'religionklist': Religion.objects.all(),
+
     }
     return render(request, "home.html", context)
 
@@ -73,11 +77,17 @@ class CheckoutView(View):
                 address.save()
                 # TODO add redirect to the select view
                 messages.success(self.request, "your contact form has been submitted successfully")
-                return redirect('core:checkout')
+                if payment_option == 'S':
+                    return redirect('core:payment', payment_option='stripe')
+                elif payment_option == 'P':
+                    return redirect('core:payment', payment_option='paypal')
+                else:
+                    messages.warning(
+                        self.request, "Invalid payment option selected")
+                    return redirect('core:checkout')
             else:
                 messages.warning(self.request, "Form is invalid, try again")
                 return redirect('core:checkout')
-
         except ObjectDoesNotExist:
             messages.warning(self.request, "Form is invalid")
             return redirect('core:checkout')
@@ -105,7 +115,6 @@ def Add_to_selectedList(request, pk=None):
         selected_by=request.user,
         labour=labour,
         taken=False,
-
     )
     selected_list_qs = selectedList.objects.filter(selected_by=request.user, taken=False)
     if selected_list_qs.exists():
@@ -131,14 +140,73 @@ class Payment(View):
 
     def post(self, *args, **kwargs):
         selected_labour = selectedList.objects.get(selected_by=self.request.user, taken=False)
-        token = self.request.POST['stripeToken']
+        token = self.request.POST.get('stripeToken')
+        amount = int(selected_labour.charges)
 
-        charge = stripe.Charge.create(
-            amount=1000,
-            currency='usd',
-            description='A Django charge',
-            source=token
-        )
+        try:
+            charge = stripe.Charge.create(
+                amount=amount,
+                currency='usd',
+                description=' charges for labour',
+                source=token
+            )
+
+            # save the payments
+            payments = Payment()
+            payments.stripe_charge_id = charge['id']
+            payments.user = self.request.user
+            payments.amount = selected_labour.charges
+            payments.timestamp = timezone.now()
+            payments.save()
+
+            # update the order
+            selected_labour.taken = True
+            selected_labour.is_paid = True
+            selected_labour.payment = payments
+            selected_labour.save()
+            messages.info(self.request, 'your request was successfully')
+            return redirect('/')
+
+        except stripe.error.CardError as e:
+            body = e.json_body
+            err = body.get('error', {})
+            messages.warning(self.request, f"{err.get('message')}")
+            return redirect("/")
+
+        except stripe.error.RateLimitError as e:
+            # Too many requests made to the API too quickly
+            messages.warning(self.request, "Rate limit error")
+            return redirect("/")
+
+        except stripe.error.InvalidRequestError as e:
+            # Invalid parameters were supplied to Stripe's API
+            print(e)
+            messages.warning(self.request, "Invalid parameters")
+            return redirect("/")
+
+        except stripe.error.AuthenticationError as e:
+            # Authentication with Stripe's API failed
+            # (maybe you changed API keys recently)
+            messages.warning(self.request, "Not authenticated")
+            return redirect("/")
+
+        except stripe.error.APIConnectionError as e:
+            # Network communication with Stripe failed
+            messages.warning(self.request, "Network error")
+            return redirect("/")
+
+        except stripe.error.StripeError as e:
+            # Display a very generic error to the user, and maybe send
+            # yourself an email
+            messages.warning(
+                self.request, "Something went wrong. You were not charged. Please try again.")
+            return redirect("/")
+
+        except Exception as e:
+            # send an email to ourselves
+            messages.warning(
+                self.request, "A serious error occurred. We have been notifed.")
+            return redirect("/")
 
 
 def add_comment_to_selected_labour(request, pk=None):

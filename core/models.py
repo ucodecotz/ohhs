@@ -52,6 +52,36 @@ def userprofile_receiver(sender, instance, created, *args, **kwargs):
 post_save.connect(userprofile_receiver, sender=settings.AUTH_USER_MODEL)
 
 
+class Tribe(models.Model):
+    name = models.CharField(max_length=39, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Tribe'
+
+    def __str__(self):
+        return self.name
+
+
+class Work(models.Model):
+    name = models.CharField(max_length=39, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Work'
+
+    def __str__(self):
+        return str(self.name)
+
+
+class Religion(models.Model):
+    name = models.CharField(max_length=39, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Religion'
+
+    def __str__(self):
+        return str(self.name)
+
+
 class LaboursProfile(models.Model):
     user = models.ForeignKey(UserProfile,
                              on_delete=models.CASCADE, null=True)
@@ -59,13 +89,17 @@ class LaboursProfile(models.Model):
     dob = models.DateTimeField(default=timezone.now)
     gender = models.CharField(max_length=10, choices=GENDER, null=True)
     label = models.CharField(max_length=20, choices=LABEL, null=True)
-    religion = models.CharField(max_length=100, choices=RELIGION)
-    tribe = models.CharField(max_length=100, choices=TRIBE)
-    work = models.CharField(max_length=100, null=True)
+    religion = models.ForeignKey(Religion, on_delete=models.CASCADE, null=True, blank=True)
+    tribe = models.ForeignKey(Tribe,  on_delete=models.CASCADE, null=True)
+    work = models.ForeignKey(Work,  on_delete=models.CASCADE, null=True, blank=True)
+
+    # religion = models.CharField(max_length=29,  null=True, blank=True)
+    # tribe = models.CharField(max_length=29,  null=True, blank=True)
+    # work = models.CharField(max_length=29,  null=True, blank=True)
     taken = models.BooleanField(default=False)
     created_on = models.DateTimeField(default=timezone.now)
     update_on = models.DateTimeField(default=timezone.now)
-    charges = models.FloatField(default=100000.00)
+    charges = models.FloatField(default=100)
 
     class Meta:
         verbose_name_plural = 'labours'
@@ -74,11 +108,14 @@ class LaboursProfile(models.Model):
         return str(self.user.user)
 
     def get_absolute_url(self):
-        title = self.work.replace(" ", "-")
+        title = self.work.name.replace(" ", "-")
         return reverse('core:details', args=[str(self.pk)])
 
     def get_add_to_selected_list(self):
         return reverse('core:add_to_selected_list', args=[str(self.pk)])
+
+    def convert_charges_tzsh(self):
+        return self.charges * 2316
 
 
 class selectedLabour(models.Model):
@@ -101,6 +138,9 @@ class selectedList(models.Model):
     selected_on = models.DateTimeField(auto_now_add=True)
     comments = models.ManyToManyField("comments")
     employer_address = models.ForeignKey("Address", on_delete=models.SET_NULL, null=True, blank=True)
+    charges = models.FloatField(default=100, null=True)
+    payment = models.ForeignKey('Payment', on_delete=models.SET_NULL, null=True)
+    is_paid = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'Selected list'

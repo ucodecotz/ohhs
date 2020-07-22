@@ -144,15 +144,16 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #
 LOGIN_REDIRECT_URL = '/'
 # sending email to registered peaple
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'wadadaapp@gmail.com'
-EMAIL_HOST_PASSWORD = 'wadada@123'
+EMAIL_HOST_PASSWORD = 'wadda@1a23'
 EMAIL_PORT = 587
+ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 if DEBUG:
+
     STRIPE_PUBLIC_KEY = 'pk_test_bbBPXDEBDCY66RvV2o95BjH800IpN6nrSl'
     STRIPE_SECRET_KEY = 'sk_test_49wnT6UBUcbntz1gaaugRs8u00dEtnmXa3'
 

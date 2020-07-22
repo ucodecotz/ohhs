@@ -33,3 +33,10 @@ admin.site.register(UserProfile)
 admin.site.register(selectedLabour, selectedLabourAdmin)
 admin.site.register(selectedList, selectedListAdmin)
 admin.site.register(Address)
+admin.site.register(Payment)
+admin.site.register(Work)
+admin.site.register(Tribe)
+admin.site.register(Religion)
+
+
+
