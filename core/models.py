@@ -29,6 +29,11 @@ LABEL = (
 
 )
 
+"""
+CREATE TABLE TABALENAME (  username, firstname
+
+"""
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
@@ -90,8 +95,8 @@ class LaboursProfile(models.Model):
     gender = models.CharField(max_length=10, choices=GENDER, null=True)
     label = models.CharField(max_length=20, choices=LABEL, null=True)
     religion = models.ForeignKey(Religion, on_delete=models.CASCADE, null=True, blank=True)
-    tribe = models.ForeignKey(Tribe,  on_delete=models.CASCADE, null=True)
-    work = models.ForeignKey(Work,  on_delete=models.CASCADE, null=True, blank=True)
+    tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE, null=True)
+    work = models.ForeignKey(Work, on_delete=models.CASCADE, null=True, blank=True)
 
     # religion = models.CharField(max_length=29,  null=True, blank=True)
     # tribe = models.CharField(max_length=29,  null=True, blank=True)
@@ -189,3 +194,14 @@ class comments(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Blog(models.Model):
+    title = models.CharField(max_length=300, null=True, blank=True)
+    content = models.TextField()
+
+    class Meta:
+        verbose_name_plural = ' System blog'
+
+    def __str__(self):
+        return self.title

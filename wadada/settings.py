@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
     # our own app
     'core',
+    'blog',
 ]
 
 MIDDLEWARE = [

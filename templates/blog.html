@@ -1,0 +1,20 @@
+<htlm>
+    <head>
+        <title>
+
+        </title>
+
+    </head>
+    <body>
+    <h1> HELLO Wadada</h1>
+
+    <ul>
+        {% for blog in blog_list %}
+            <li>{{ blog.title }}</li>
+            <li>{{ blog.content}}</li>
+
+    {% endfor %}
+
+    </ul>
+    </body>
+</htlm>

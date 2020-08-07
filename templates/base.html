@@ -306,14 +306,14 @@ body{
 <body class="homepage-v2 hidden-sn white-skin animated">
 
     <!--Navigation-->
-    <header>
+    <header class="mb-5">
         <!-- Sidebar navigation -->
         <ul id="slide-out" class="side-nav custom-scrollbar">
             <!-- Logo -->
             <li>
                 <div class="logo-wrapper waves-light">
                     <a href="#">
-                        <img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" class="img-fluid flex-center">
+                        <img src="{% static 'img/domestic_work.png' %}" class="img-fluid flex-center">
                     </a>
                 </div>
             </li>
@@ -451,7 +451,7 @@ body{
                     </a>
                 </div>
                 <a class="navbar-brand font-weight-bold" href="{% url 'core:home' %}">
-                    <strong>Online HouseHold service system</strong>
+                    <strong>OHHSS</strong>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -507,11 +507,7 @@ body{
         </nav>
         <!-- /.Navbar -->
 
-
     </header>
-    <br><br>
-
-
 
   {% block contents%}
 
@@ -525,7 +521,7 @@ body{
     <div class="footer-copyright py-3 text-center">
       <div class="container-fluid">
         © 2020 Copyright:
-        <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank">wadada.com </a>
+        <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank">OHHSS </a>
       </div>
     </div>
     <!--/.Copyright -->

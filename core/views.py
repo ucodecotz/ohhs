@@ -5,6 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.views.generic import DetailView
+from .models import *
 import stripe
 from .filters import *
 from .forms import *
@@ -15,6 +16,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def home(request):
+
     labours_qs = LaboursProfile.objects.filter(taken=False)[:8]
     labours_qs1 = LaboursProfile.objects.filter(taken=False)[8:]
 
