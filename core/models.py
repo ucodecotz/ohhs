@@ -97,10 +97,6 @@ class LaboursProfile(models.Model):
     religion = models.ForeignKey(Religion, on_delete=models.CASCADE, null=True, blank=True)
     tribe = models.ForeignKey(Tribe, on_delete=models.CASCADE, null=True)
     work = models.ForeignKey(Work, on_delete=models.CASCADE, null=True, blank=True)
-
-    # religion = models.CharField(max_length=29,  null=True, blank=True)
-    # tribe = models.CharField(max_length=29,  null=True, blank=True)
-    # work = models.CharField(max_length=29,  null=True, blank=True)
     taken = models.BooleanField(default=False)
     created_on = models.DateTimeField(default=timezone.now)
     update_on = models.DateTimeField(default=timezone.now)
@@ -121,6 +117,18 @@ class LaboursProfile(models.Model):
 
     def convert_charges_tzsh(self):
         return self.charges * 2316
+
+
+class labourOfficialDoc(models.Model):
+    nida = models.FileField(upload_to='doc')
+    labour = models.ForeignKey(LaboursProfile, on_delete=models.CASCADE)
+    created = models.DateTimeField(null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Labour doc'
+
+    def __str__(self):
+        return str(self.labour.user)
 
 
 class selectedLabour(models.Model):

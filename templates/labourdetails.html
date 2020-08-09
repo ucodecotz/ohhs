@@ -24,7 +24,7 @@
                                 <strong>{{object.convert_charges_tzsh}} TSH</strong></a>
 
                             <a href="{{object.get_add_to_selected_list}}" type="button" class="btn btn-primary btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i> I want a {{ object.work}} worker</a>
-                            <a href="{% url 'core:checkout' %}" type="button" class="btn btn-default btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i> Got to fee payments</a>
+                            <a href="{% url 'core:checkout' %}" type="button" class="btn btn-default btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i>Make commissioner fee for this worker</a>
 
                         </div>
                     </div>
@@ -61,10 +61,7 @@
                                 <div class="widget widget-tabbed">
                                     <!-- Nav tab -->
                                     <ul class="nav nav-tabs nav-justified">
-                                      <li class="active mb-5" ><a href="#my-timeline" data-toggle="tab"><i class="fa fa-pencil ml-3"></i> Comments</a></li>
-                                      <li class=" mb-5"><a href="#about" data-toggle="tab"><i class="fa fa-user ml-3"></i> About</a></li>
                                       <li class= mb-5"><a href="#user-activities" data-toggle="tab"><i class="fa fa-laptop ml-3"></i> Documents</a></li>
-                                      <li class=" mb-5"><a href="#mymessage" data-toggle="tab"><i class="fa fa-envelope  ml-3"></i> Message</a></li>
                                     </ul>
                                     <!-- End nav tab -->
 
@@ -158,78 +155,21 @@
                                         <div class="tab-pane animated fadeInRight" id="user-activities">
                                             <div class="scroll-user-widget">
                                                 <ul class="media-list">
+                                                    {% for doc in object.labourofficialdoc_set.all %}
                                                     <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>John Doe</strong> Uploaded a photo <strong>"DSC000254.jpg"</strong>
-                                                        <br><i>2 minutes ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>John Doe</strong> Created an photo album  <strong>"Indonesia Tourism"</strong>
+                                                    <a href="#fakelink">
+                                                        <p><strong>NIDA DOC</strong>
                                                         <br><i>8 minutes ago</i></p>
-                                                        </a>
+                                                    </a>
+                                                        <img src="{{doc.nida.url}}" alt="">
                                                     </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Annisa</strong> Posted an article  <strong>"Yogyakarta never ending Asia"</strong>
-                                                        <br><i>an hour ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Ari Rusmanto</strong> Added 3 products
-                                                        <br><i>3 hours ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Hana Sartika</strong> Send you a message  <strong>"Lorem ipsum dolor..."</strong>
-                                                        <br><i>12 hours ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Johnny Depp</strong> Updated his avatar
-                                                        <br><i>Yesterday</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>John Doe</strong> Uploaded a photo <strong>"DSC000254.jpg"</strong>
-                                                        <br><i>2 minutes ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>John Doe</strong> Created an photo album  <strong>"Indonesia Tourism"</strong>
-                                                        <br><i>8 minutes ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Annisa</strong> Posted an article  <strong>"Yogyakarta never ending Asia"</strong>
-                                                        <br><i>an hour ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Ari Rusmanto</strong> Added 3 products
-                                                        <br><i>3 hours ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Hana Sartika</strong> Send you a message  <strong>"Lorem ipsum dolor..."</strong>
-                                                        <br><i>12 hours ago</i></p>
-                                                        </a>
-                                                    </li>
-                                                    <li class="media">
-                                                        <a href="#fakelink">
-                                                        <p><strong>Johnny Depp</strong> Updated his avatar
-                                                        <br><i>Yesterday</i></p>
-                                                        </a>
-                                                    </li>
+                                                    {% empty %}
+                                                        <div class="alert alert-warning" role="alert">
+                                                          No documents for now
+                                                        </div>
+
+                                                    {% endfor %}
+
                                                 </ul>
                                             </div><!-- End div .scroll-user-widget -->
                                         </div><!-- End div .tab-pane -->
