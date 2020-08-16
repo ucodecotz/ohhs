@@ -154,8 +154,8 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 
 
 if DEBUG:
-
     STRIPE_PUBLIC_KEY = 'pk_test_bbBPXDEBDCY66RvV2o95BjH800IpN6nrSl'
     STRIPE_SECRET_KEY = 'sk_test_49wnT6UBUcbntz1gaaugRs8u00dEtnmXa3'
+
 
 

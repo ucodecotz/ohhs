@@ -21,10 +21,8 @@
                         </div>
                         <div class="col-sm-12 profile-actions text-right">
                             <a href="{{object.get_add_to_selected_list}}" type="button" class="btn btn-secondary btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i>
-                                <strong>{{object.convert_charges_tzsh}} TSH</strong></a>
+                                <strong>{{object.convert_charges_tzsh}} for fee commissioner TSH</strong></a>
 
-                            <a href="{{object.get_add_to_selected_list}}" type="button" class="btn btn-primary btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i> I want a {{ object.work}} worker</a>
-                            <a href="{% url 'core:checkout' %}" type="button" class="btn btn-default btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i>Make commissioner fee for this worker</a>
 
                         </div>
                     </div>
@@ -36,7 +34,7 @@
                                 <div class="text-center user-profile-2" style="margin-top:120px">
                                     <ul class="list-group">
                                       <li class="list-group-item">
-                                        <h4>Name:  <b>{{object.user}}</b></h4>
+                                        <h4>Name:  <b>{{object.Full_name}}</b></h4>
                                         <h5>Work:  <b>{{object.work}}</b></h5>
                                       </li>
 
@@ -45,11 +43,11 @@
                                         <!-- User button -->
                                     <div class="user-button">
                                         <div class="row">
-                                            <div class="col-lg-6">
-                                                <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Send Message</button>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <button type="button" class="btn btn-default btn-sm btn-block"><i class="fa fa-user"></i> Add as friend</button>
+                                           <div class="col-lg-12">
+                                                 <a href="{{object.get_add_to_selected_list}}" type="button" class="btn btn-primary btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i> I want a {{ object.work}} worker</a>
+                                           </div>
+                                            <div class="col-lg-12">
+                                                <a href="{{object.get_add_to_selected_list}}" class="btn btn-default btn-lg btn-block"><i class="fa fa-user"></i>Complete request </a>
                                             </div>
                                         </div>
                                     </div><!-- End div .user-button -->
@@ -94,7 +92,7 @@
                                                         {% for comment in object.comments_set.all %}
                                                       <li class="media">
                                                         <a class="pull-left" href="#fakelink">
-                                                          <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Avatar">
+                                                          <img class="media-object user-message" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQSvdl382q8a8hXT9ZSG6hASePoNH_bqAa4Lg&usqp=CAU" alt="Avatar">
                                                         </a>
                                                         <div class="media-body">
                                                           <h4 class="media-heading"><a href="#fakelink">{{user.username}}</a> <small>{{comment.created_on}}</small></h4>
@@ -116,39 +114,6 @@
                                         </div><!-- End div .tab-pane -->
                                         <!-- End Tab timeline -->
 
-
-                                        <!-- Tab about -->
-                                        <div class="tab-pane animated fadeInRight" id="about">
-                                            <div class="user-profile-content">
-                                                <h5><strong>ABOUT</strong> ME</h5>
-                                                <p>
-                                                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
-                                                </p>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <h5><strong>CONTACT</strong></h5>
-                                                            <address>
-                                                                <strong>Phone</strong><br>
-                                                                <abbr title="Phone">{{object.phone}}</abbr>
-                                                            </address>
-                                                            <address>
-                                                                <strong>Email</strong><br>
-                                                                <a href="mailto:#">{{object.user.email}}</a>
-                                                            </address>
-
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <h5><strong>MY</strong> SKILLS</h5>
-                                                        <p>UI Design</p>
-                                                        <p>Clean and Modern Web Design</p>
-                                                        <p>PHP and MySQL Programming</p>
-                                                        <p>Vector Design</p>
-                                                    </div>
-                                                </div><!-- End div .row -->
-                                            </div><!-- End div .user-profile-content -->
-                                        </div><!-- End div .tab-pane -->
-                                        <!-- End Tab about -->
 
 
                                         <!-- Tab user activities -->
@@ -176,102 +141,7 @@
                                         <!-- End Tab user activities -->
 
                                         <!-- Tab user messages -->
-                                        <div class="tab-pane animated fadeInRight" id="mymessage">
-                                            <div class="scroll-user-widget">
-                                                <ul class="media-list">
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">John Doe</a> <small>Just now</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Annisa</a> <small>Yesterday at 04:00 AM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Rusmanovski</a> <small>January 17, 2014 05:35 PM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Ari Rusmanto</a> <small>January 17, 2014 05:35 PM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Jenny Doe</a> <small>January 17, 2014 05:35 PM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">John Doe</a> <small>Just now</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Annisa</a> <small>Yesterday at 04:00 AM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Rusmanovski</a> <small>January 17, 2014 05:35 PM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Ari Rusmanto</a> <small>January 17, 2014 05:35 PM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                  <li class="media">
-                                                    <a class="pull-left" href="#fakelink">
-                                                      <img class="media-object user-message" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Avatar">
-                                                    </a>
-                                                    <div class="media-body">
-                                                      <h4 class="media-heading"><a href="#fakelink">Jenny Doe</a> <small>January 17, 2014 05:35 PM</small></h4>
-                                                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                                                    </div>
-                                                  </li>
-                                                </ul>
-                                            </div><!-- End div .scroll-user-widget -->
-                                        </div><!-- End div .tab-pane -->
+
                                         <!-- End Tab user messages -->
                                     </div><!-- End div .tab-content -->
                                 </div><!-- End div .box-info -->
@@ -279,11 +149,8 @@
                         </div>
                     </div>
                 </div>
-                            </div>
-                            <!-- /.Content -->
-
-
-    </div>
+            </div>
+        </div>
     </div>
 
 {% endblock contents %}

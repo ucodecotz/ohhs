@@ -16,7 +16,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 def home(request):
-
     labours_qs = LaboursProfile.objects.filter(taken=False)[:8]
     labours_qs1 = LaboursProfile.objects.filter(taken=False)[8:]
 
@@ -122,17 +121,17 @@ def Add_to_selectedList(request, pk=None):
     if selected_list_qs.exists():
         selected_list = selected_list_qs[0]
         if selected_list.labours.filter(labour__pk=labour.pk).exists():
-            messages.info(request, "Try to add your home address")
+            messages.info(request, "You already requested this worker, Continue to Contact form")
             return redirect("core:checkout", )  # pk = labour.pk
         else:
             selected_list.labours.add(selected_labour)
-            messages.info(request, "This labour was added to your labour list.")
+            messages.success(request, "This labour was added to your labour list.")
             return redirect("core:checkout")
     else:
         selected_list = selectedList.objects.get_or_create(
             selected_by=request.user, selected_on=selected_Date)
         selected_list.selected_labours.add(selected_labour)
-        messages.info(request, "This labour was added to your labour list")
+        messages.success(request, "This labour was added to your labour list")
         return redirect("core:details", pk=labour.pk)
 
 
@@ -161,7 +160,7 @@ class Payment(View):
             payments.timestamp = timezone.now()
             payments.save()
 
-            # update the order
+            # update the selected labour details
             selected_labour.taken = True
             selected_labour.is_paid = True
             selected_labour.payment = payments
@@ -182,7 +181,7 @@ class Payment(View):
 
         except stripe.error.InvalidRequestError as e:
             # Invalid parameters were supplied to Stripe's API
-            print(e)
+
             messages.warning(self.request, "Invalid parameters")
             return redirect("/")
 
@@ -226,9 +225,10 @@ def add_comment_to_selected_labour(request, pk=None):
             )
             new_comment.save()
             messages.success(request, 'Your comment is submitted successfully')
-            redirect('core:details', pk=pk)
-        messages.success(request, 'form is not valid')
-        redirect('core:details', pk=pk)
+            return redirect('core:details', pk=pk)
+        else:
+            messages.success(request, 'Form is not valid')
+            return redirect('core:details', pk)
 
     messages.success(request, ' it is get request')
-    redirect('core:details', pk=pk)
+    return redirect('core:details', pk=pk)

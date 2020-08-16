@@ -88,8 +88,7 @@ class Religion(models.Model):
 
 
 class LaboursProfile(models.Model):
-    user = models.ForeignKey(UserProfile,
-                             on_delete=models.CASCADE, null=True)
+    Full_name = models.CharField(max_length=200, null = True, blank= True)
     image = models.FileField(upload_to='profile_pic', null=True)
     dob = models.DateTimeField(default=timezone.now)
     gender = models.CharField(max_length=10, choices=GENDER, null=True)
@@ -106,7 +105,7 @@ class LaboursProfile(models.Model):
         verbose_name_plural = 'labours'
 
     def __str__(self):
-        return str(self.user.user)
+        return str(self.Full_name)
 
     def get_absolute_url(self):
         title = self.work.name.replace(" ", "-")
@@ -191,7 +190,7 @@ class Payment(models.Model):
 
 
 class comments(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE, null=True)
     labour = models.ForeignKey(LaboursProfile, on_delete=models.CASCADE, null=True)
     content = models.TextField()
