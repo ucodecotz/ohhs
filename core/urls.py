@@ -11,7 +11,7 @@ urlpatterns = [
     path('Add_to_selected_list/<int:pk>/', views.Add_to_selectedList, name='add_to_selected_list'),
     # path('add_comment/<int:pk>/', views.add_comment, name='add_comment'),
     path('checkout/', views.CheckoutView.as_view(), name='checkout'),
-    path('payment/<payment_option>/', views.Payment.as_view(), name='payment'),
+    path('payment/<payment_option>/', views.PaymentView.as_view(), name='payment'),
 
     # path('search/', views.search, name='search'),
 ]

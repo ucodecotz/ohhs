@@ -28,6 +28,10 @@ LABEL = (
     ('Da', 'danger'),
 
 )
+PAYMENT_OPTIONS = (
+        ('S', 'Stripe'),
+        ('P', 'Paypal')
+    )
 
 """
 CREATE TABLE TABALENAME (  username, firstname
@@ -88,7 +92,7 @@ class Religion(models.Model):
 
 
 class LaboursProfile(models.Model):
-    Full_name = models.CharField(max_length=200, null = True, blank= True)
+    Full_name = models.CharField(max_length=200, null=True, blank=True)
     image = models.FileField(upload_to='profile_pic', null=True)
     dob = models.DateTimeField(default=timezone.now)
     gender = models.CharField(max_length=10, choices=GENDER, null=True)
@@ -99,7 +103,7 @@ class LaboursProfile(models.Model):
     taken = models.BooleanField(default=False)
     created_on = models.DateTimeField(default=timezone.now)
     update_on = models.DateTimeField(default=timezone.now)
-    charges = models.FloatField(default=100)
+    charges = models.IntegerField(default=100)
 
     class Meta:
         verbose_name_plural = 'labours'
@@ -142,6 +146,9 @@ class selectedLabour(models.Model):
     def __str__(self):
         return str(self.labour)
 
+    def get_labour_price(self):
+        return self.labour.charges
+
 
 class selectedList(models.Model):
     selected_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -153,6 +160,7 @@ class selectedList(models.Model):
     charges = models.FloatField(default=100, null=True)
     payment = models.ForeignKey('Payment', on_delete=models.SET_NULL, null=True)
     is_paid = models.BooleanField(default=False)
+    payment_option = models.CharField(max_length=200, null=True, blank=True, choices=PAYMENT_OPTIONS)
 
     class Meta:
         verbose_name_plural = 'Selected list'
@@ -160,13 +168,21 @@ class selectedList(models.Model):
     def __str__(self):
         return str(self.selected_by)
 
+    def get_total(self):
+        total = 0
+        for order_item in self.labours.all():
+            total += order_item.get_labour_price()
+        return total
+
 
 class Address(models.Model):
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False, null=True)
     zip_code = models.CharField(max_length=200)
+    payment_option = models.CharField(max_length=200, null=True, blank=True, choices=PAYMENT_OPTIONS)
 
     class Meta:
         verbose_name_plural = "Employer addresses"
@@ -180,7 +196,7 @@ class Payment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
     amount = models.FloatField()
-    timestamp = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_created=True)
 
     class Meta:
         verbose_name_plural = "Payments"
@@ -191,7 +207,7 @@ class Payment(models.Model):
 
 class comments(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE, null=True)
+                             on_delete=models.CASCADE, null=True)
     labour = models.ForeignKey(LaboursProfile, on_delete=models.CASCADE, null=True)
     content = models.TextField()
     created_on = models.DateTimeField(default=timezone.now)

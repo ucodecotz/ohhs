@@ -37,7 +37,7 @@ admin.site.register(Payment)
 admin.site.register(Work)
 admin.site.register(Tribe)
 admin.site.register(Religion)
-admin.site.register(Blog)
+# admin.site.register(Blog)
 admin.site.register(labourOfficialDoc)
 
 
