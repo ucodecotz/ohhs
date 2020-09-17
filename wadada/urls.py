@@ -23,6 +23,9 @@ urlpatterns = [
     path('', include('core.urls')),
     path('accounts/', include('allauth.urls')),
     path('blog/', include('blog.urls')),
+    path('paypal/', include('paypal.standard.ipn.urls')),
+    path('ratings/', include('star_ratings.urls', namespace='ratings', )),
+
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

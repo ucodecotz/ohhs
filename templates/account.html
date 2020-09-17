@@ -1,0 +1,81 @@
+<link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
+{% extends 'base.html' %}
+{% block contents %}
+<main class="mb-5">
+
+    <div class="container-fluid">
+
+      <!-- Section: Cascading panels -->
+      <section class="mb-5">
+
+        <!-- Grid row -->
+        <div class="row">
+
+          <!-- Grid column -->
+          <div class="col-lg-4 col-md-12 mb-lg-0 mb-4">
+
+            <!-- Panel -->
+            <div class="card">
+
+              <div class="card-header white-text primary-color">
+               Employees
+              </div>
+
+              <div class="card-body text-center px-4 mb-3">
+                <div class="list-group list-panel">
+                  {% for requests in request_made %}
+                  <a href="{% url 'core:labour_your_selected' requests.id  %}" class="list-group-item d-flex justify-content-between dark-grey-text">{{forloop.counter}}:  REQUEST
+
+                    <i class="fas fa-request ml-auto" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i>
+                  </a>
+                  {%empty%}
+                  No Request you made
+                 {%endfor%}
+                </div>
+              </div>
+
+            </div>
+            <!-- Panel -->
+
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-lg-8 col-md-8 mb-md-0 mb-4">
+
+            <!-- Panel -->
+            <div class="card">
+
+              <div class="card-header white-text primary-color">
+               More Information
+              </div>
+
+              <div class="card-body text-center px-4 mb-3">
+                <div class="list-group list-panel">
+                  <a href="{% url 'core:contract_view'%}" class="list-group-item d-flex justify-content-between dark-grey-text">Contracts
+                    <i class="fas fa-file" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i></a>
+                  <a href="{% url 'core:refund_accepted' %}" class="list-group-item d-flex justify-content-between dark-grey-text">Refunds
+                    <i class="fas fa-money" data-toggle="tooltip" data-placement="top" title="" data-original-title="Click to fix"></i></a>
+                </div>
+              </div>
+
+            </div>
+            <!-- Panel -->
+
+          </div>
+          <!-- Grid column -->
+
+
+
+        </div>
+        <!-- Grid row -->
+
+      </section>
+      <!--Section: Cascading panels-->
+
+
+    </div>
+
+  </main>
+
+{% endblock %}

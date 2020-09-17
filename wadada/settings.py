@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'django_filters',
     'django_countries',
     'stripe',
+    'paypal.standard.ipn',
+    'star_ratings',
 
     # our own app
     'core',
@@ -152,5 +154,9 @@ EMAIL_HOST_PASSWORD = 'wadda@1a23'
 EMAIL_PORT = 587
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
+# paypal settings
+PAYPAL_RECEIVER_EMAIL = 'jnichoraus3gmail.com.com'
+PAYPAL_TEST = True
+# stripe settings
 STRIPE_PUBLIC_KEY = 'pk_test_51HJxc6I7nlrGYYPQbmQd511PcAbcfnfggRzxNfu66ngNQkS8wDS0h1P9kQQNEBCtqgG5wrOpYwJG2KZA5DA34g3w003Q9kQluG'
 STRIPE_SECRET_KEY = 'sk_test_51HJxc6I7nlrGYYPQkxWaUjYPVUE7ENtc6zXWk1bQgm3YuMk5N4wnyxe4RXNceJsjnk45Dx12lDyt2rPRxNSnMI7900zSf4TEnm'

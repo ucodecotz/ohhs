@@ -10,7 +10,7 @@ PAYMENT_OPTIONS = (
 
 
 class commentForm(forms.Form):
-    content = forms.CharField(widget=forms.Textarea(attrs={
+    content = forms.CharField(label='Comments', widget=forms.Textarea(attrs={
         'class': 'form-control',
         'placeholder': 'What is in you mind',
         'cols': '100',
@@ -37,4 +37,47 @@ class CheckoutForm(forms.Form):
 class Payment_form(forms.ModelForm):
     class Meta:
         model = Payment
-        fields = ('stripe_charge_id', )
+        fields = ('stripe_charge_id',)
+
+
+class RequestRefundForm(forms.Form):
+    ref_code = forms.CharField(widget=forms.TextInput(
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter reference code',
+        }
+    ))
+    message = forms.CharField(widget=forms.Textarea(
+
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter messages',
+            'rows': 4
+        }
+    ))
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter your email address',
+    }))
+
+
+class ContractForm(forms.Form):
+    agree = forms.BooleanField()
+
+
+class UnknownUserContactForm(forms.Form):
+    contact_name = forms.CharField()
+    contact_email = forms.CharField(widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Enter your email address',
+    }))
+    contact_phone = forms.CharField()
+    contact_company = forms.CharField()
+    contact_message = forms.CharField(widget=forms.Textarea(
+
+        attrs={
+            'class': 'form-control',
+            'placeholder': 'Enter messages',
+            'rows': 4
+        }
+    ))

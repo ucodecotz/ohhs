@@ -1,5 +1,8 @@
+from datetime import date, timedelta
+
 from django.db import models
 from django.conf import settings
+from django.db.models.functions import datetime
 from django.db.models.signals import post_save
 from django.urls import reverse
 from django.utils import timezone
@@ -29,9 +32,9 @@ LABEL = (
 
 )
 PAYMENT_OPTIONS = (
-        ('S', 'Stripe'),
-        ('P', 'Paypal')
-    )
+    ('S', 'Stripe'),
+    ('P', 'Paypal')
+)
 
 """
 CREATE TABLE TABALENAME (  username, firstname
@@ -104,6 +107,8 @@ class LaboursProfile(models.Model):
     created_on = models.DateTimeField(default=timezone.now)
     update_on = models.DateTimeField(default=timezone.now)
     charges = models.IntegerField(default=100)
+    phone_number = models.CharField(max_length=13, null=True)
+    location = models.CharField(max_length=20, null=True)
 
     class Meta:
         verbose_name_plural = 'labours'
@@ -119,7 +124,14 @@ class LaboursProfile(models.Model):
         return reverse('core:add_to_selected_list', args=[str(self.pk)])
 
     def convert_charges_tzsh(self):
-        return self.charges * 2316
+        return int(self.charges) * 2316
+
+    def get_age(self):
+        today = date.today()
+        y = today.year - self.dob.year
+        if today.month < self.dob.month or today.month == self.dob.month and today.day < self.dob.day:
+            y -= 1
+        return f'{y} year old'
 
 
 class labourOfficialDoc(models.Model):
@@ -149,8 +161,12 @@ class selectedLabour(models.Model):
     def get_labour_price(self):
         return self.labour.charges
 
+    def get_full_name(self):
+        return str(self.labour.Full_name)
 
-class selectedList(models.Model):
+
+class LabourSelectedList(models.Model):
+    ref_code = models.CharField(max_length=30, null=True, blank=True)
     selected_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     labours = models.ManyToManyField(selectedLabour)
     taken = models.BooleanField(default=False)
@@ -161,6 +177,8 @@ class selectedList(models.Model):
     payment = models.ForeignKey('Payment', on_delete=models.SET_NULL, null=True)
     is_paid = models.BooleanField(default=False)
     payment_option = models.CharField(max_length=200, null=True, blank=True, choices=PAYMENT_OPTIONS)
+    refund_requested = models.BooleanField(default=False)
+    refund_granted = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = 'Selected list'
@@ -176,7 +194,6 @@ class selectedList(models.Model):
 
 
 class Address(models.Model):
-
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
@@ -228,3 +245,43 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Refund(models.Model):
+    ref_code = models.CharField(max_length=200, null=True, blank=True)
+    made_by = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                on_delete=models.CASCADE, null=True)
+
+    reason = models.TextField()
+    accepted = models.BooleanField(default=False)
+    email = models.EmailField()
+
+    def __str__(self):
+        return f"{self.ref_code}"
+
+
+class Contract(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    contract = models.TextField()
+    signed_at = models.DateTimeField(default=timezone.now)
+    agree = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = 'Contract'
+
+    def __str__(self):
+        return str(self.user)
+
+
+class ContactModel(models.Model):
+    contact_name = models.CharField(max_length=23, null=True)
+    contact_email = models.CharField(max_length=30, null=True)
+    contact_phone = models.CharField(max_length=30, null=True, )
+    contact_company = models.CharField(max_length=20, null=True)
+    contact_message = models.TextField(null=True)
+
+    class Meta:
+        verbose_name_plural = 'Contact'
+
+    def __str__(self):
+        return self.contact_name

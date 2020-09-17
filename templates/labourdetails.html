@@ -20,8 +20,8 @@
                             {% endif%}
                         </div>
                         <div class="col-sm-12 profile-actions text-right">
-                            <a href="{{object.get_add_to_selected_list}}" type="button" class="btn btn-secondary btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i>
-                                <strong>{{object.convert_charges_tzsh}} for fee commissioner TSH</strong></a>
+<!--                            <a href="{{object.get_add_to_selected_list}}" type="button" class="btn btn-secondary btn-lg" title="Click here, if you want this worker"><i class="fa fa-check"></i>-->
+<!--                                <strong>{{object.convert_charges_tzsh}} for fee commissioner TSH</strong></a>-->
 
 
                         </div>
@@ -32,13 +32,6 @@
                             <div class="col-sm-3">
                                 <!-- Begin user profile -->
                                 <div class="text-center user-profile-2" style="margin-top:120px">
-                                    <ul class="list-group">
-                                      <li class="list-group-item">
-                                        <h4>Name:  <b>{{object.Full_name}}</b></h4>
-                                        <h5>Work:  <b>{{object.work}}</b></h5>
-                                      </li>
-
-                                    </ul>
 
                                         <!-- User button -->
                                     <div class="user-button">
@@ -76,6 +69,18 @@
 
                                                 <!-- Begin timeline -->
                                                 <div class="the-timeline">
+                                                     <h1>Worker Details</h1>
+                                                    <hr>
+                                                    <div class="project-info-box">
+                                                        <p><b>Name:</b> {{object.Full_name}}</p>
+                                                        <p><b>Age:</b> {{object.get_age}}</p>
+                                                        <p><b>Work:</b> {{object.work}}</p>
+                                                        <p><b>Tribe:</b> {{object.tribe}}</p>
+                                                        <p><b>Religion:</b>{{object.religion}}</p>
+                                                        <p><b>Experience:</b> 1 year of working</p>
+                                                        <p class="mb-0"><b>Company Commissioners</b> {{object.convert_charges_tzsh}}</p>
+                                                    </div>
+                                                    <hr>
                                                     <form role="form" method="post"  action="{% url 'core:add_comment_to_selected_labour' object.id %} " class="post-to-timeline">
                                                         {%csrf_token%}
                                                         {{form}}
@@ -122,6 +127,7 @@
                                         <!-- Tab user activities -->
                                         <div class="tab-pane animated fadeInRight" id="user-activities">
                                             <div class="scroll-user-widget">
+
                                                 <ul class="media-list">
                                                     {% for doc in object.labourofficialdoc_set.all %}
                                                     <li class="media">

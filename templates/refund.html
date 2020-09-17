@@ -1,0 +1,55 @@
+{% extends 'base.html'%}
+
+{% block contents%}
+<main>
+    <div class="container">
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center">
+
+        <!--Grid column-->
+        <div class="col-md-6">
+
+          <!--Section: Content-->
+          <section class="mb-5">
+
+            <form action="." method="post">
+              {%csrf_token%}
+
+              <div class="md-form md-outline">
+                <input type="text" name="ref_code" id="defaultForm-email1" class="form-control">
+                <label data-error="wrong" data-success="right" for="defaultForm-email1" class="">Enter your ref-code</label>
+              </div>
+              <div class="md-form md-outline">
+                <input type="email" name="email" id="defaultForm-pass1" class="form-control">
+                <label data-error="wrong" data-success="right" for="defaultForm-pass1" class="">Enter Email </label>
+              </div>
+              <div class="md-form md-outline">
+                    <textarea name="message" id="form76" class="md-textarea form-control" rows="4"></textarea>
+                    <label for="form76" class="">Enter reason/label>
+
+              </div>
+              <button type="submit" class="btn btn-primary mb-4 waves-effect waves-light">Send</button>
+
+            </form>
+
+            <div class="d-flex justify-content-between align-items-center mb-2">
+
+              <div class="form-check pl-0 mb-3">
+                <input type="checkbox" class="form-check-input filled-in" id="new">
+              </div>
+
+            </div>
+
+          </section>
+          <!--Section: Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+{% endblock contents%}

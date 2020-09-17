@@ -1,0 +1,52 @@
+{% extends 'base.html'%}
+
+{% block contents%}
+<main>
+  <div class="container">
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center">
+        <!--Grid column-->
+         {% for ref in refund %}
+        <div class="col-md-12">
+          <!--Section: Content-->
+          <div class="question-card card mb-4">
+            <!--Card content-->
+            <div class="card-body">
+              Hi, {{ ref.made_by}}
+              <hr>
+              <!-- Comments -->
+              <div class="comment-card ml-5">
+                <!-- Single comment -->
+              {% if ref.accepted%}
+                <p>Your refund request has been accepted, vist your Email address for information </p>
+                <a href="#" type="button" class="btn btn-outline-dark-green btn-sm px-2 waves-effect show_login">
+                  <span class="value"></span>
+                   <i class="far fa-thumbs-up ml-1"></i>
+                </a>
+                {%else%}
+                 <p>Your refund request  not yet processed  or not accepted</p>
+                <a href="#" type="button" class="btn btn-outline-red btn-sm px-2 waves-effect show_login">
+                  <span class="value"></span>
+                   <i class="far fa-thumbs-down ml-1"></i>
+                </a>
+                {%endif%}
+                <hr>
+                <div class="form-group mb-0">
+                  <a href="#" class="btn btn-info btn-sm ml-0 comment-form-toggle show_login waves-effect waves-light">Add comment</a>
+                </div>
+              </div>
+              <!-- Comments -->
+            </div>
+          </div>
+          <!--Section: Content-->
+
+        </div>
+        <!--Grid column-->
+         {%endfor%}
+
+      </div>
+      <!--Grid row-->
+
+    </div>
+  </main>
+{% endblock contents%}

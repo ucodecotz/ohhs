@@ -1,0 +1,63 @@
+
+<link rel="stylesheet" href="https://allyoucan.cloud/cdn/icofont/1.0.1/icofont.css" integrity="sha384-jbCTJB16Q17718YM9U22iJkhuGbS0Gd2LjaWb4YJEZToOPmnKDjySVa323U+W7Fv" crossorigin="anonymous">
+{% extends 'base.html' %}
+{% block contents %}
+<div class="container mt-5 mb-5 bg-light-outline-primary">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="osahan-account-page-left shadow-sm bg-white h-100">
+                <div class="border-bottom p-4">
+                    <div class="osahan-user text-center">
+                        <div class="osahan-user-media">
+                            <img width="50%" class="mb-3 rounded-pill shadow-sm mt-1" src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQSvdl382q8a8hXT9ZSG6hASePoNH_bqAa4Lg&usqp=CAU" alt="gurdeep singh osahan">
+                            <div class="osahan-user-media-body">
+                                <h6 class="mb-2">{{ request.user.username }}</h6>
+                                <p class="mb-1">+91 85680-79956</p>
+                                <p>{{ request.user.email }}</p>
+                                <p class="mb-0 text-black font-weight-bold"><a class="text-primary mr-3" data-toggle="modal" data-target="#edit-profile-modal" href="#"><i class="icofont-ui-edit"></i> EDIT</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="nav nav-tabs flex-column border-0 pt-4 pl-4 pb-4" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="payments-tab" data-toggle="tab" href="#payments" role="tab" aria-controls="payments" aria-selected="true"><i class="icofont-credit-card"></i>View profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="osahan-account-page-right shadow-sm bg-white p-4 h-100">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active show" id="payments" role="tabpanel" aria-labelledby="payments-tab">
+                        <h4 class="font-weight-bold mt-0 mb-4">Payments</h4>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="bg-white card payments-item mb-4 shadow-sm">
+                                    <div class="gold-members p-4">
+                                        <a href="#">
+                                        </a>
+                                        <div class="media">
+                                            <div class="media-body">
+                                               <a href="#">
+                                                   <i class="icofont-brand-paypal icofont-4x"></i>
+<!--                                                   <i class="icofont-visa icofont-4x"> <small></small></i>-->
+                                               </a>
+                                                    <p>{{ form.render }}</p>
+                                                <p class="mb-0 text-black font-weight-bold">
+                                                    <a href="#">
+                                                    </a>
+                                                  </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

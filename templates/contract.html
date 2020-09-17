@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+<main>
+    <div class="container">
+        <div class="d-flex align-items-center ">
+        <div class="container text-center ">
+          <h3 class="mb-3">Contract</h3>
+        </div>
+      </div>
+
+      <!--Grid row-->
+      <div class="row d-flex justify-content-center">
+
+        <!--Grid column-->
+        <div class="col-md-12">
+
+          <!--Section: Content-->
+          <section class="mb-5">
+
+
+            <form action="." method="post">
+                {%csrf_token%}
+                <p>     THIS AGREEMENT made between
+                <u><b class="p-4">{{request.user.username}}</b></u>
+                as employer and {% for worker in contract %}<u><b class="p-4">{{worker.labour}}</b></u>{%endfor  %} as employee on [ WE TAKE THE DAY OF TODAY],
+                WHEREAS the Employer desires to obtain the benefit of the services of the Employee, and the Employee desires to render such services on the terms and conditions set forth.
+                IN CONSIDERATION of the promises and other good and valuable consideration Employer should agree as follows:</p>
+
+                    <h4><a href="#">Payments</a></h4>
+                Here Employer should make first payment as commission fee as charges from a company. Employee Salary should be agreed between Employee and His/her Employer according to different facts such as size of the family, type of work/s etc.
+                    <h4><a href="#">Employment</a></h4>
+                 The Employee agrees that he will at all times faithfully, and to the best of his skill, ability, experience and talents, perform all of the duties required of his position. In carrying out these duties and responsibilities, the Employee shall comply with all Employer policies, procedures, rules and regulations, both written and oral, as are announced by the Employer from time to time. It is also understood and agreed to by the Employee that his assignment, duties and responsibilities and reporting arrangements may be changed by the Employer in its sole discretion without causing termination of this agreement.
+                    <h4><a href="#">Termination</a></h4>
+                 <ul>
+                     <li>The Employee may at any time terminate this agreement and his employment by giving not less than two weeks written notice to the Employer.</li>
+                     <li>The Employer may terminate this Agreement and the Employee’s employment at any time, without notice or payment in lieu of notice, for sufficient cause</li>
+                     <li>The Employer may terminate the employment of the Employee at any time without the requirement to show sufficient cause pursuant to (b) above, provided the Employer pays to the Employee an amount as required by the Employment Standards Act 2000 or other such legislation as may be in effect at the time of termination. This payment shall constitute the employees entire entitlement arising from said termination.</li>
+                     <li>The employee agrees to return any property of Employer at the time of termination.</li>
+                 </ul>
+
+                 <div class="form-check pl-0 ml-5 mb-3 mt-5">
+                     <input type="checkbox"name="agree" class="form-check-input filled-in" id="new">
+                     <label class="form-check-label small text-uppercase card-link-secondary" for="new">I agree to terms and condition</label>
+                 </div>
+                <button type="submit" class="btn btn-primary mb-4 waves-effect waves-light">Submit contract</button>
+            </form>
+
+
+          </section>
+          <!--Section: Content-->
+
+        </div>
+        <!--Grid column-->
+
+      </div>
+      <!--Grid row-->
+
+
+    </div>
+  </main>
+{% endblock contents %}

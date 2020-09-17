@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+ <main>
+    <div class="container fkuid mt-0 mb-5">
+      <!--Section: Block Content-->
+      <section class=" mb-5">
+
+        <!--Grid row-->
+
+        {% if selected_list.is_paid %}
+        <div class="row">
+
+          <!--Grid column-->
+          <div class="col-lg-8">
+            <!-- Card -->
+            <div class="card wish-list mb-4">
+              <div class="card-body">
+                <h5 class="mb-4">Your Employees</h5>
+                  {% for labour_list in selected_list.labours.all %}
+                <div class="row mb-4">
+                  <div class="col-md-5 col-lg-3 col-xl-3">
+                    <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+                      <img class="img-fluid w-100" src="{{labour_list.labour.image.url}}" alt="Sample">
+                      <a href="#!">
+                        <div class="mask waves-effect waves-light">
+                          <img class="img-fluid w-100" src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Vertical/12.jpg">
+                          <div class="mask rgba-black-slight waves-effect waves-light"></div>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-7 col-lg-9 col-xl-9">
+                    <div>
+                      <div class="d-flex justify-content-between">
+                        <div>
+                          <h5>{{labour_list.labour.Full_name}}</h5>
+                          <p class="mb-3 text-muted text-uppercase small">{{labour_list.labour.work}}</p>
+                          <p class="mb-2 text-muted text-uppercase small">{{labour_list.ref_code}}</p>
+                          <p class="mb-3 text-muted text-uppercase small"></p>
+                        </div>
+
+                      </div>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                          <a href="{% url 'core:refund'%}" type="button" class="card-link-secondary small text-uppercase mr-3"><i class="fas fa-trash-alt mr-1"></i> Request refund </a>
+                          <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i class="fas fa-phone mr-1"></i>{{labour_list.labour.phone_number}} </a><br>
+                          <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i class="fas fa-map-marker-alt mr-1"></i>{{labour_list.labour.location}} </a>
+                        </div>
+                        <p class="mb-0"><span><strong></strong></span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {%empty%}%
+                <h11> No requests for now</h11>
+                  {%endfor %}
+                <hr class="mb-4">
+
+                <p class="text-primary mb-0"><i class="fas fa-info-circle mr-1"></i> User the Employee reference Code to Request for Refund. In case the imployes in not in your need or somethiinng</p>
+
+              </div>
+            </div>
+            <!-- Card -->
+
+            <!-- Card -->
+            <div class="card mb-4">
+              <div class="card-body">
+
+              <p class="text-primary mb-0">
+               {% if selected_list.refund_requested %}
+                <i style="color:green;" class="fas fa-check-double mr-1"></i> Refund requested
+                 {% else%}
+                 <i style="color:red;" class="fas fa-times mr-1"></i>No Refund requested
+                 {% endif%}
+              </p>
+                <p class="mb-0">{{payments.timestamp}}</p>
+              </div>
+            </div>
+            <div class="card mb-4">
+              <div class="card-body">
+
+              <p class="text-primary mb-0">
+               {% if selected_list.refund_granted %}
+                <i style="color:green;" class="fas fa-check-double mr-1"></i> Refund granted
+                 {% else%}
+                 <i style="color:red;" class="fas fa-times mr-1"></i>No Refund granted for now
+                 {% endif%}
+              </p>
+                <p class="mb-0">{{payments.timestamp}}</p>
+              </div>
+            </div>
+
+            <!-- Card -->
+
+            <!-- Card -->
+            <div class="card mb-4">
+              <div class="card-body">
+                <h5 class="mb-4">For more  information contact us on</h5>
+                <a href="#!" type="button" class="card-link-secondary small text-uppercase"><i class="fas fa-phone mr-1"></i>Company address </a><br>
+
+              </div>
+            </div>
+            <!-- Card -->
+
+          </div>
+          <!--Grid column-->
+
+          <!--Grid column-->
+          <div class="col-lg-4">
+
+            <!-- Card -->
+            <div class="card mb-4">
+              <div class="card-body">
+
+                <h5 class="mb-3">The total amount of</h5>
+
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                    Commissioners:
+                    <span>${{selected_list.charges}}</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                    Transport fee for labour
+                    <span>Gratis</span>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                    <div>
+                      <strong>The total amount of</strong>
+                      <strong>
+                        <p class="mb-0">(including VAT)</p>
+                      </strong>
+                    </div>
+                    <span><strong>${{selected_list.get_total}}</strong></span>
+                  </li>
+                </ul>
+
+                <a href="{% url 'core:refund'%}" class="btn btn-primary btn-block waves-effect waves-light">Request for refund</a>
+
+              </div>
+            </div>
+            <!-- Card -->
+
+            <!-- Card -->
+            <div class="card mb-4">
+              <div class="card-body">
+
+                <a class="text-danger d-flex justify-content-between" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                 REF-CODE: {{selected_list.ref_code}}
+                  <span><i class="fas fa-chevron-down pt-1"></i></span>
+                </a>
+
+                <div class="collapse" id="collapseExample">
+                  <div class="mt-3">
+                    <div class="md-form md-outline mb-0">
+                      <p> User this ref-code to applying for refund</p>
+                      <p style="color:green"> Copy this  {{selected_list.ref_code}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Card -->
+
+          </div>
+          <!--Grid column-->
+
+        </div>
+        {% else%}
+        <h1>It is either you have an inmplete request ,get and</h1>
+        {% endif %}
+
+        <!--Grid row-->
+
+      </section>
+      <!--Section: Block Content-->
+
+    </div>
+  </main>
+{% endblock %}
